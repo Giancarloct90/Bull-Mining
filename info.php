@@ -15,7 +15,7 @@
         <br>
         <br><br>
         <div class="container">
-        <h1>Nuevo Contacto</h1>
+        <h1>Nuevo Contactos</h1>
         <form action="guardarContacto.php" method="post">
             <div class="col-6">
             
