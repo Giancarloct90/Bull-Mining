@@ -30,14 +30,16 @@ class crud extends db{
    }
 
    public function deleteContacto ($id_contacto){
-       $pst = $this->mysql->prepare("DELETE contactos WHERE id_contacto = :id_contacto");
+       $pst = $this->mysql->prepare("DELETE FROM contactos WHERE id_contacto = :id_contacto");
        $pst->bindParam(":id_contacto",$id_contacto,PDO::PARAM_STR);
        return $pst->execute();
    }
 
+
+
    public function getTelefonos($id_contacto){
-    $telefonos = $this->mysql->query("SELECT * FROM telefonos WHERE id_contactos = :id_contactos");
-    return $telefonos->fetchArray();
+    $telefonos = $this->mysql->query("SELECT * FROM telefonos WHERE id_contacto = {$id_contacto};");
+    return $telefonos->fetchAll();
    }
 
    public function setTelefonos($id_contacto,$telefono){
@@ -47,7 +49,16 @@ class crud extends db{
        return $pst->execute();
    }
    public function updateTelefonos($id_contacto,$telefono){
-        $pst = $this->mysql->prepare("UPDATE telefonos set id_contacto = :id_contacto");
+        $pst = $this->mysql->prepare("UPDATE telefonos set telefono = :telefono WHERE id_contacto = :id_contacto");
+        $pst->bindParam(":id_contacto",$id_contacto,PDO::PARAM_STR);
+        $pst->bindParam(":telefono",$nombre,PDO::PARAM_STR);
+        return $pst->execute();
+   }
+
+   public function deleteTelefonos ($id_contacto){
+       $pst = $this->mysql->prepare("DELETE FROM telefonos WHERE id_contacto = :id_contacto");
+       $pst->bindParam(":id_contacto",$id_contacto,PDO::PARAM_STR);
+       return $pst->execute();
    }
 }
 ?>
