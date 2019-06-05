@@ -17,7 +17,8 @@ if($_POST){
         $pst->execute();
         
         $id_contacto = $db->mysql->lastInsertId();
-        $pst = $db->mysql->prepare("INSERT INTO telefonos VALUES(null,{$id_contacto},{$telefono});");
+        $pst = $db->mysql->prepare("INSERT INTO telefonos VALUES(null,{$id_contacto},:telefono);");
+        $pst->bindParam(":telefono",$telefono,PDO::PARAM_STR);
         $pst->execute();
         $db->mysql->commit();
         ?>
