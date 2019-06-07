@@ -24,7 +24,7 @@
         </form>
         <br><br>
     <h1>Contactos</h1>
-    <table class="table">
+    <table class="table" >
         <thead class="thead-dark">
             <tr>
                 <th scope="col">ID</th>
@@ -35,32 +35,8 @@
                 <th scope="col" colspan="2">opciones</th>
             </tr>
         </thead>
-        <tbody>
-            <?php
-                require('crud.php');
-                $crud = new crud();
-                $contactos = $crud->getContactos();
-                //print_r($contcatos);
-                //print_r($telefonos);
-                foreach ($contactos as $contacto) {
-                    echo "<tr>";
-                        echo "<th>{$contacto['id_contacto']}</th>";
-                        echo "<td>{$contacto['nombres']}</td>";
-                        echo "<td>{$contacto['apellidos']}</td>";
-                        echo "<td>{$contacto['direccion']}</td>";
-                        $telefonos = $crud->gettelefonos($contacto['id_contacto']);
-                        if(empty($telefonos)){
-                            echo "<td></td>";
-                        }else{
-                            foreach ($telefonos as $telefono) {
-                                echo "<td>{$telefono['telefono']}</td>";
-                            }
-                        }
-                        echo "<td><a href='modificar.php?id_contacto={$contacto['id_contacto']}'>Actulizar</td>";
-                        echo "<td><a href='delete.php?id_contacto={$contacto['id_contacto']}'>Borrar</td>";
-                    echo "</tr>";
-                }
-            ?>
+        <tbody id="tablaContactos">
+
         </tbody>
     </table> 
     <script src="assets/js/jquery-3.4.1.js"> </script>
