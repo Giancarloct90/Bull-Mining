@@ -10,6 +10,11 @@ class crud extends db{
         return $contactos->fetchAll();
     }
     
+    public function getContacto($id_contacto){
+        $contactos = $this->mysql->query("SELECT * FROM contactos WHERE id_contacto = '{$id_contacto}';");
+        return $contactos->fetch();
+    }
+    
     public function setContacto($nombre, $apellido, $direccion){
         $pst = $this->mysql->prepare("INSERT INTO contactos VALUES (null, :nombres, :apellidos, :direccion);");
         $pst->bindParam(":nombres",$nombre,PDO::PARAM_STR);
