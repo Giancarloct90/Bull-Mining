@@ -9,10 +9,12 @@ class crud extends db{
         $contactos = $this->mysql->query("SELECT * FROM contactos");
         return $contactos->fetchAll();
     }
+
+
     
     public function getContacto($id_contacto){
         $contactos = $this->mysql->query("SELECT * FROM contactos WHERE id_contacto = '{$id_contacto}';");
-        return $contactos->fetch();
+        return $contactos->fetchAll();
     }
     
     public function setContacto($nombre, $apellido, $direccion){

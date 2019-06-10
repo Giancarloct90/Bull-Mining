@@ -27,6 +27,24 @@
         }
     }
 
+
+    function getContactosWithTelefonos(){
+        $crud = new crud();
+        $contactos = $crud->getContactos();
+        $contactosConTel = array();
+        foreach($contactos as $contacto){
+            $telefonos = $crud->getTelefonos($contacto['id_contacto']);
+            foreach($telefonos as $telefono){
+                array_push($contacto, $telefono['telefono']);
+            }
+            array_push($contactosConTel, $contacto);
+
+        }
+   
+        echo json_encode($contactosConTel);
+    }
+
+
     function obtenerContactos(){
         $crud = new crud();
         if(!$_GET){

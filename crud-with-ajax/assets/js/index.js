@@ -20,47 +20,57 @@ $(document).ready(() => {
         });
     });
 
+    $(document).on('click', '.btnDelete', () => {
+        alert('hello');
+    });
+
     let obtenerContactos = () => {
         $.ajax({
             type: "GET",
-            url: "controller.php?action=obtenerContactos",
+            url: "controller.php?action=getContactosWithTelefonos",
             success: (response) => {
-                let contactos = JSON.parse(response);
                 let template = '';
-                contactos.forEach(contacto => {
-
-                    template +=
-                        `<tr>
-                            <td>${contacto.id_contacto}</td>
-                            <td>${contacto.nombres}</td>
-                            <td>${contacto.apellidos}</td>
-                            <td>${contacto.direccion}</td>
-                            <td>${999}</td>
-                        </tr>`;
+                let template2 = '';
+                let template3 = '';
+                let templateTot = '';
+                let template4 = '';
+                let template5 = '';
+                contactos = JSON.parse(response);
+                let arr = [];
+                contactos.forEach((contacto) => {
+                    arr.push(contacto);
                 });
-                $("#tablaContactos").html(template);
+                //console.log(arr);
+                let i = 0;
+                arr.forEach((ct) => {
+                    //console.log(contactos);
+                    for (var k in ct) {
+                        i++;
+                    }
+                    //console.log(i);
+                    template2 = `<td>`;
+                    for (b = 0; b <= i - 5; b++) {
+                        template2 += `<li>${ct[b]}</li>`;
+                    }
+                    template2 += `</td>`;
+                    template += `<tr> 
+                    <td>${ct['id_contacto']}</td>
+                    <td>${ct['nombres']}</td>
+                    <td>${ct['apellidos']}</td>
+                    <td>${ct['direccion']}</td>
+                    `;
+                    template += template2;
+                    template4 = `<td><a href="modicar.php?id_contacto=${ct['id_contacto']}">Modificar</a></td>`;
+                    template5 = `<td><button id="btnBorrar" type="button" class=" btnDelete btn btn-danger">Borrar</button></a></td>`;
+                    template += template4;
+                    template += template5;
+                    template += '<tr>';
+                    i = 0;
+                });
+                templateTot = template + template3;
+                $('#tablaContactos').html(template);
             }
         });
     };
-
-    let obtTelefonos = () => {
-        $.ajax({
-            type: "POST",
-            data: {
-                id_contacto: '77'
-            },
-            url: "controller.php?action=obtenerTelefonos",
-            success: (response) => {
-                // let contactos = JSON.parse(response);
-                // let template = '';
-                // contactos.forEach(telefono => {
-
-                //     console.log(telefono);
-                // });
-                console.log(response);
-            }
-        });
-    };
-    obtTelefonos();
     obtenerContactos();
 });

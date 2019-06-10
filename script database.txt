@@ -85,3 +85,45 @@ UNLOCK TABLES;
                     echo "</tr>";
                 }
             ?>
+
+             let obtenerContactos = () => {
+        $.ajax({
+            type: "GET",
+            url: "controller.php?action=obtenerContactos",
+            success: (response) => {
+                let contactos = JSON.parse(response);
+                let template = '';
+                contactos.forEach(contacto => {
+
+                    template +=
+                        `<tr>
+                            <td>${contacto.id_contacto}</td>
+                            <td>${contacto.nombres}</td>
+                            <td>${contacto.apellidos}</td>
+                            <td>${contacto.direccion}</td>
+                            <td>${999}</td>
+                        </tr>`;
+                });
+                $("#tablaContactos").html(template);
+            }
+        });
+    };
+
+
+
+    response.forEach((contacto) => {
+                    let sizeArr = contacto.length;
+                    console.log(sizeArr);
+                    console.log(contacto);
+                    template += `<tr>
+                    <td>${contacto.id_contacto} </td>
+                    <td>${contacto.nombres} </td>
+                    <td>${contacto.apellidos} </td>
+                    <td>${contacto.direccion} </td>`;
+                    for (i; i <= sizeArr; i++) {
+                        template2 += `<td>fuck</td>`;
+                    }
+                    //console.log(template2);
+                    template3 += `</tr>`;
+                    templateTotal = template + template2 + template3;
+                });
